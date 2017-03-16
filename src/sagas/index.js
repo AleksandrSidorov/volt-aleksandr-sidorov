@@ -3,12 +3,17 @@ import api from './api';
 import * as actions from '../actions';
 
 export function* getAllCustomers() {
-  const customers = yield call(api.getCustomers);
-  yield put(actions.receiveCustomers(customers));
+  try {
+    const customers = yield call(api.getCustomers);
+    yield put(actions.receiveAllCustomers(customers));
+  }
+  catch (err) {
+    yield put(actions.receiveAllCustomersFailed(err));
+  }
 }
 
 export function* watchGetCustomers() {
-  yield takeEvery(actions.GET_ALL_CUSTOMERS, getAllCustomers);
+  yield takeEvery(actions.CUSTOMERS_FETCH_REQUESTED, getAllCustomers);
 }
 
 export default function* rootSaga() {

@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import { default as customers } from './customers';
 
 const rootReducer = combineReducers({
-  state: (state = { test: "test" }) => state
+  customers
 })
 
 export default rootReducer;

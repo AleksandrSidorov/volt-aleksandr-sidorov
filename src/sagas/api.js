@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 const baseUrl = 'http://localhost:8000/api';
 
 // Customers RESA API Calls
