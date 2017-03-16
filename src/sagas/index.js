@@ -12,12 +12,27 @@ export function* getAllCustomers() {
   }
 }
 
+export function* deleteCustomer(action) {
+  try {
+    const result = yield call(api.deleteCustomer, action.id);
+  }
+  catch(err) {
+    yield console.log('Delete Error');
+  }
+}
+
+// Watchers
 export function* watchGetCustomers() {
   yield takeEvery(actions.CUSTOMERS_FETCH_REQUESTED, getAllCustomers);
+}
+
+export function* watchDeleteCustomer() {
+  yield takeEvery(actions.CUSTOMER_DELETE_REQUESTED, deleteCustomer)
 }
 
 export default function* rootSaga() {
   yield [
     fork(watchGetCustomers),
+    fork(watchDeleteCustomer),
   ]
 }

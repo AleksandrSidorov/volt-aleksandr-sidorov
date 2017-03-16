@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Table } from 'react-bootstrap';
 
-import { getAllCustomers } from '../actions';
+import { getAllCustomers, deleteCustomerRequest } from '../actions';
 
 class Customers extends Component {
 
@@ -16,16 +17,34 @@ class Customers extends Component {
         {
           this.props.isFetching ? <p>Loading...</p> : null
         }
-        {
-          this.props.customersList.length ? (
-            this.props.customersList.map((customer, index) => {
-              return <div key={index}>
-                <p>Name: {customer.name}</p>
-                <p>Address: {customer.address}</p>
-              </div>
-            })
-          ) : null
-        }
+        <Table striped condensed hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.props.customersList.length ? (
+                this.props.customersList.map((customer, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{customer.id}</td>
+                      <td>{customer.name}</td>
+                      <td>{customer.address}</td>
+                      <td>{customer.phone}</td>
+                      <td><button onClick={() => this.props.deleteCustomer(customer.id)}>Delete</button></td>
+                    </tr>
+                  )
+                })
+              ) : null
+            }
+          </tbody>
+        </Table>
       </div>
     )
   }
@@ -41,7 +60,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getAllCustomers: () => dispatch(getAllCustomers())
+    getAllCustomers: () => dispatch(getAllCustomers()),
+    deleteCustomer: (id) => dispatch(deleteCustomerRequest(id))
   }
 }
 
