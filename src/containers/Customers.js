@@ -1,14 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { Button } from 'react-bootstrap';
 
 import CustomerList from '../components/CustomerList';
 import ModalDeleteCustomer from '../components/ModalDeleteCustomer';
+import ModalEditCustomer from '../components/ModalEditCustomer';
+
 import {
   getAllCustomers,
   deleteCustomerRequest,
   showDeleteCustomerModal,
   hideDeleteCustomerModal,
+  showEditCustomerModal,
+  hideEditCustomerModal,
 } from '../actions';
 
 class Customers extends Component {
@@ -25,19 +30,25 @@ class Customers extends Component {
       <div>
         <Helmet title="Customers" />
         <h2>Customers</h2>
+        <Button onClick={() => this.props.showEditCustomerModal(null)}>Add New Customer</Button>
         {
           this.props.isFetching ? <p>Loading...</p> : null
         }
         <CustomerList
           customersList={this.props.customersList}
           onDeleteClick={this.props.showDeleteCustomerModal}
-          onEditClick={() => console.log('delete')}
+          onEditClick={this.props.showEditCustomerModal}
         />
         <ModalDeleteCustomer
-          customer={this.props.selectedCustomer}
+          customerId={this.props.selectedCustomer}
           show={this.props.isModalDelete}
           onHide={this.props.hideDeleteCustomerModal}
           onDeleteClick={this.props.deleteCustomer}
+        />
+        <ModalEditCustomer
+          customerId={this.props.selectedCustomer}
+          show={this.props.isModalEdit}
+          onHide={this.props.hideEditCustomerModal}
         />
       </div>
     )
@@ -61,6 +72,8 @@ function mapDispatchToProps(dispatch) {
     deleteCustomer: (id) => dispatch(deleteCustomerRequest(id)),
     showDeleteCustomerModal: (id) => dispatch(showDeleteCustomerModal(id)),
     hideDeleteCustomerModal: () => dispatch(hideDeleteCustomerModal()),
+    showEditCustomerModal: (id) => dispatch(showEditCustomerModal(id)),
+    hideEditCustomerModal: () => dispatch(hideEditCustomerModal()),
   }
 }
 

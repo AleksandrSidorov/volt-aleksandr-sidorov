@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const ModalDeleteCustomer = ({ customer, show, onHide, onDeleteClick }) => {
+const ModalDeleteCustomer = ({ customerId, show, onHide, onDeleteClick }) => {
   return (
     <div className="static-modal">
       <Modal show={show} onHide={() => onHide()}>
@@ -10,14 +10,14 @@ const ModalDeleteCustomer = ({ customer, show, onHide, onDeleteClick }) => {
         </Modal.Header>
 
         <Modal.Body>
-          Do you really want to delete customer with ID {customer}?
+          Do you really want to delete customer with ID {customerId}?
         </Modal.Body>
 
         <Modal.Footer>
           <Button onClick={() => onHide()}>{'Close'}</Button>
           <Button
             bsStyle="primary"
-            onClick={() => onDeleteClick(customer)}
+            onClick={() => onDeleteClick(customerId)}
           >
             {'Delete'}
           </Button>
@@ -25,6 +25,13 @@ const ModalDeleteCustomer = ({ customer, show, onHide, onDeleteClick }) => {
       </Modal>
     </div>
   )
+}
+
+ModalDeleteCustomer.propTypes = {
+  customerId: PropTypes.number,
+  show: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 }
 
 export default ModalDeleteCustomer;

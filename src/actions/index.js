@@ -5,6 +5,9 @@ export const CUSTOMER_DELETE_REQUESTED = 'CUSTOMER_DELETE_REQUESTED';
 export const CUSTOMER_REMOVE = 'CUSTOMER_REMOVE';
 export const CUSTOMER_SHOW_MODAL_DELETE = 'CUSTOMER_SHOW_MODAL_DELETE';
 export const CUSTOMER_HIDE_MODAL_DELETE = 'CUSTOMER_HIDE_MODAL_DELETE';
+export const CUSTOMER_SHOW_MODAL_EDIT = 'CUSTOMER_SHOW_MODAL_EDIT';
+export const CUSTOMER_HIDE_MODAL_EDIT = 'CUSTOMER_HIDE_MODAL_EDIT';
+
 
 // Customers Actions
 export function getAllCustomers() {
@@ -49,8 +52,20 @@ export function showDeleteCustomerModal(id) {
 }
 
 export function hideDeleteCustomerModal() {
-  console.log('action: hide modal');
   return {
     type: CUSTOMER_HIDE_MODAL_DELETE,
+  }
+}
+
+export function showEditCustomerModal(id) {
+  return {
+    type: CUSTOMER_SHOW_MODAL_EDIT,
+    id
+  }
+}
+
+export function hideEditCustomerModal() {
+  return {
+    type: CUSTOMER_HIDE_MODAL_EDIT,
   }
 }

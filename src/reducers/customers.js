@@ -6,6 +6,8 @@ import {
   CUSTOMER_REMOVE,
   CUSTOMER_SHOW_MODAL_DELETE,
   CUSTOMER_HIDE_MODAL_DELETE,
+  CUSTOMER_SHOW_MODAL_EDIT,
+  CUSTOMER_HIDE_MODAL_EDIT,
 } from '../actions';
 
 const initialState = {
@@ -46,17 +48,32 @@ export default function customers(state = initialState, action) {
         selectedCustomer: action.id
       }
     case CUSTOMER_HIDE_MODAL_DELETE:
-      console.log('reducer: hide modal');
       return {
         ...state,
         isModalDelete: false,
         selectedCustomer: null
       }
+
     case CUSTOMER_REMOVE:
       return {
         ...state,
         customersList: state.customersList.filter( customer => customer.id !== action.id)
       }
+
+    case CUSTOMER_SHOW_MODAL_EDIT:
+      return {
+        ...state,
+        isModalEdit: true,
+        selectedCustomer: action.id
+      }
+
+    case CUSTOMER_HIDE_MODAL_EDIT:
+      return {
+        ...state,
+        isModalEdit: false,
+        selectedCustomer: null
+      }
+
     default:
       return state;
   }
