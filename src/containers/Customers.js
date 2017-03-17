@@ -1,50 +1,44 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Table } from 'react-bootstrap';
+import Helmet from 'react-helmet';
 
-import { getAllCustomers, deleteCustomerRequest } from '../actions';
+import CustomerList from '../components/CustomerList';
+import ModalDeleteCustomer from '../components/ModalDeleteCustomer';
+import {
+  getAllCustomers,
+  deleteCustomerRequest,
+  showDeleteCustomerModal,
+  hideDeleteCustomerModal,
+} from '../actions';
 
 class Customers extends Component {
 
   componentDidMount() {
-    this.props.getAllCustomers();
+    if (this.props.customersList.length == 0) {
+      console.log("List in state is empty. Receiving customers from DB.");
+      this.props.getAllCustomers();
+    }
   }
 
   render() {
     return (
       <div>
+        <Helmet title="Customers" />
         <h2>Customers</h2>
         {
           this.props.isFetching ? <p>Loading...</p> : null
         }
-        <Table striped condensed hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.props.customersList.length ? (
-                this.props.customersList.map((customer, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{customer.id}</td>
-                      <td>{customer.name}</td>
-                      <td>{customer.address}</td>
-                      <td>{customer.phone}</td>
-                      <td><button onClick={() => this.props.deleteCustomer(customer.id)}>Delete</button></td>
-                    </tr>
-                  )
-                })
-              ) : null
-            }
-          </tbody>
-        </Table>
+        <CustomerList
+          customersList={this.props.customersList}
+          onDeleteClick={this.props.showDeleteCustomerModal}
+          onEditClick={() => console.log('delete')}
+        />
+        <ModalDeleteCustomer
+          customer={this.props.selectedCustomer}
+          show={this.props.isModalDelete}
+          onHide={this.props.hideDeleteCustomerModal}
+          onDeleteClick={this.props.deleteCustomer}
+        />
       </div>
     )
   }
@@ -53,15 +47,20 @@ class Customers extends Component {
 function mapStateToProps (state) {
   return {
     customersList: state.customers.customersList,
+    selectedCustomer: state.customers.selectedCustomer,
     isFetching: state.customers.isFetching,
-    errorMessage: state.customers.errorMessage
+    errorMessage: state.customers.errorMessage,
+    isModalDelete: state.customers.isModalDelete,
+    isModalEdit: state.customers.isModalEdit,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getAllCustomers: () => dispatch(getAllCustomers()),
-    deleteCustomer: (id) => dispatch(deleteCustomerRequest(id))
+    deleteCustomer: (id) => dispatch(deleteCustomerRequest(id)),
+    showDeleteCustomerModal: (id) => dispatch(showDeleteCustomerModal(id)),
+    hideDeleteCustomerModal: () => dispatch(hideDeleteCustomerModal()),
   }
 }
 

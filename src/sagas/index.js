@@ -2,6 +2,7 @@ import { take, put, call, fork, select, takeEvery } from 'redux-saga/effects';
 import api from './api';
 import * as actions from '../actions';
 
+
 export function* getAllCustomers() {
   try {
     const customers = yield call(api.getCustomers);
@@ -15,11 +16,15 @@ export function* getAllCustomers() {
 export function* deleteCustomer(action) {
   try {
     const result = yield call(api.deleteCustomer, action.id);
+    const deletedCustomerId = result.id
+    yield put(actions.removeCustomer(deletedCustomerId));
+    yield put(actions.hideDeleteCustomerModal());
   }
   catch(err) {
     yield console.log('Delete Error');
   }
 }
+
 
 // Watchers
 export function* watchGetCustomers() {

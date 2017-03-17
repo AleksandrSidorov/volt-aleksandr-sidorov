@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 
 const baseUrl = 'http://localhost:8000/api';
 
-// Customers RESA API Calls
+// Customers REST API Calls
 function getCustomers() {
   return fetch(`${baseUrl}/customers`)
     .then(res => {
@@ -15,7 +15,6 @@ function getCustomers() {
 }
 
 function deleteCustomer(id) {
-  console.log('api id', id);
   return fetch(`${baseUrl}/customers/${id}`, { method: 'DELETE' })
     .then(res => {
       if(res.ok) {
