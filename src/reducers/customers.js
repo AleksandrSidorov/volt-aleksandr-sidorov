@@ -12,7 +12,7 @@ import {
 
 const initialState = {
   customersList: [],
-  selectedCustomer: null,
+  selectedCustomerId: null,
   isFetching: false,
   errorMessage: null,
   isModalDelete: false,
@@ -45,13 +45,13 @@ export default function customers(state = initialState, action) {
       return {
         ...state,
         isModalDelete: true,
-        selectedCustomer: action.id
+        selectedCustomerId: action.id
       }
     case CUSTOMER_HIDE_MODAL_DELETE:
       return {
         ...state,
         isModalDelete: false,
-        selectedCustomer: null
+        selectedCustomerId: null
       }
 
     case CUSTOMER_REMOVE:
@@ -64,14 +64,14 @@ export default function customers(state = initialState, action) {
       return {
         ...state,
         isModalEdit: true,
-        selectedCustomer: action.id
+        selectedCustomerId: action.id
       }
 
     case CUSTOMER_HIDE_MODAL_EDIT:
       return {
         ...state,
         isModalEdit: false,
-        selectedCustomer: null
+        selectedCustomerId: null
       }
 
     default:

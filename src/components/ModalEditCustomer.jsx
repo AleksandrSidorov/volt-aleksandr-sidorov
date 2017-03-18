@@ -3,7 +3,8 @@ import { Modal, Button } from 'react-bootstrap';
 
 import FormCustomer from '../containers/FormCustomer'
 
-const ModalEditCustomer = ({ customerId, show, onHide }) => {
+const ModalEditCustomer = ({ customer, show, onHide }) => {
+  const id = customer ? customer.id : null;
   return (
     <div className="static-modal">
       <Modal show={show} onHide={() => onHide()}>
@@ -12,7 +13,7 @@ const ModalEditCustomer = ({ customerId, show, onHide }) => {
         </Modal.Header>
 
         <Modal.Body>
-          Form for Customer {customerId} here.
+          Form for Customer {id} here.
           <FormCustomer />
         </Modal.Body>
 
@@ -25,7 +26,7 @@ const ModalEditCustomer = ({ customerId, show, onHide }) => {
 }
 
 ModalEditCustomer.propTypes = {
-  customerId: PropTypes.number,
+  customer: PropTypes.object,
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
 }

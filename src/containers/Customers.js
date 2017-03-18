@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap';
 import CustomerList from '../components/CustomerList';
 import ModalDeleteCustomer from '../components/ModalDeleteCustomer';
 import ModalEditCustomer from '../components/ModalEditCustomer';
+import { selectedCustomerSelector } from '../selectors';
 
 import {
   getAllCustomers,
@@ -40,13 +41,13 @@ class Customers extends Component {
           onEditClick={this.props.showEditCustomerModal}
         />
         <ModalDeleteCustomer
-          customerId={this.props.selectedCustomer}
+          customer={this.props.selectedCustomer}
           show={this.props.isModalDelete}
           onHide={this.props.hideDeleteCustomerModal}
           onDeleteClick={this.props.deleteCustomer}
         />
         <ModalEditCustomer
-          customerId={this.props.selectedCustomer}
+          customer={this.props.selectedCustomer}
           show={this.props.isModalEdit}
           onHide={this.props.hideEditCustomerModal}
         />
@@ -58,11 +59,12 @@ class Customers extends Component {
 function mapStateToProps (state) {
   return {
     customersList: state.customers.customersList,
-    selectedCustomer: state.customers.selectedCustomer,
+    selectedCustomerId: state.customers.selectedCustomerId,
     isFetching: state.customers.isFetching,
     errorMessage: state.customers.errorMessage,
     isModalDelete: state.customers.isModalDelete,
     isModalEdit: state.customers.isModalEdit,
+    selectedCustomer: selectedCustomerSelector(state),
   }
 }
 
