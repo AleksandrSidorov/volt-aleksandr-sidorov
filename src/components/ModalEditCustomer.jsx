@@ -9,11 +9,10 @@ const ModalEditCustomer = ({ customer, show, onHide }) => {
     <div className="static-modal">
       <Modal show={show} onHide={() => onHide()}>
         <Modal.Header>
-          <Modal.Title>{'Edit Customer'}</Modal.Title>
+          <Modal.Title>{id ? 'Edit Customer' : 'Add New Customer'}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          Form for Customer {id} here.
           <FormCustomer />
         </Modal.Body>
 
@@ -26,7 +25,12 @@ const ModalEditCustomer = ({ customer, show, onHide }) => {
 }
 
 ModalEditCustomer.propTypes = {
-  customer: PropTypes.object,
+  customer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    phone: PropTypes.string
+  }),
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
 }

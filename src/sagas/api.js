@@ -25,6 +25,38 @@ function deleteCustomer(id) {
     .then(res => res.json());
 }
 
+function updateCustomer(id, customer) {
+  return fetch(`${baseUrl}/customers/${id}`,
+    {
+      method: 'PUT',
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(customer)
+    })
+    .then(res => {
+      if(res.ok) {
+        return res;
+      }
+      throw new Error('Update Customer: Network response was not ok.', res.status);
+    })
+    .then(res => res.json());
+}
+
+function addNewCustomer(customer) {
+  return fetch(`${baseUrl}/customers`,
+    {
+      method: 'POST',
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(customer)
+    })
+    .then(res => {
+      if(res.ok) {
+        return res;
+      }
+      throw new Error('Add New Customer: Network response was not ok.', res.status);
+    })
+    .then(res => res.json());
+}
+
 //Products REST API Calls
 function getProducts() {
   return fetch(`${baseUrl}/products`)
@@ -44,5 +76,7 @@ function getProducts() {
 export default {
   getCustomers,
   deleteCustomer,
-  getProducts
+  getProducts,
+  addNewCustomer,
+  updateCustomer,
 };

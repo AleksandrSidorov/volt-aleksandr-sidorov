@@ -11,6 +11,7 @@ import { selectedCustomerSelector } from '../selectors';
 import {
   getAllCustomers,
   deleteCustomerRequest,
+  addNewCustomerRequest,
   showDeleteCustomerModal,
   hideDeleteCustomerModal,
   showEditCustomerModal,
@@ -31,7 +32,7 @@ class Customers extends Component {
       <div>
         <Helmet title="Customers" />
         <h2>Customers</h2>
-        <Button onClick={() => this.props.showEditCustomerModal(null)}>Add New Customer</Button>
+        <Button bsStyle="success" onClick={() => this.props.showEditCustomerModal(null)}>Add New Customer</Button>
         {
           this.props.isFetching ? <p>Loading...</p> : null
         }

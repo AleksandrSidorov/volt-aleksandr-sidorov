@@ -15,13 +15,13 @@ const ModalDeleteCustomer = ({ customer, show, onHide, onDeleteClick }) => {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={() => onHide()}>{'Close'}</Button>
           <Button
-            bsStyle="primary"
+            bsStyle="danger"
             onClick={() => onDeleteClick(id)}
           >
             {'Delete'}
           </Button>
+          <Button onClick={() => onHide()}>{'Close'}</Button>
         </Modal.Footer>
       </Modal>
     </div>

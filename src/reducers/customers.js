@@ -4,6 +4,8 @@ import {
   CUSTOMERS_FETCH_RECEIVED,
   CUSTOMERS_FETCH_FAILED,
   CUSTOMER_REMOVE,
+  CUSTOMER_INSERT,
+  CUSTOMER_UPDATE_SUCCESS,
   CUSTOMER_SHOW_MODAL_DELETE,
   CUSTOMER_HIDE_MODAL_DELETE,
   CUSTOMER_SHOW_MODAL_EDIT,
@@ -41,6 +43,26 @@ export default function customers(state = initialState, action) {
         isFetching: false,
         errorMessage: action.err
       }
+
+    case CUSTOMER_REMOVE:
+      return {
+        ...state,
+        customersList: state.customersList.filter( customer => customer.id !== action.id)
+      }
+
+    case CUSTOMER_INSERT:
+      return {
+        ...state,
+        customersList: state.customersList.concat(action.customer)
+      }
+
+    case CUSTOMER_UPDATE_SUCCESS:
+      return {
+        ...state,
+        customersList: state.customersList
+          .map((customer, index) => customer.id == action.id ? action.customer : customer)
+      }
+
     case CUSTOMER_SHOW_MODAL_DELETE:
       return {
         ...state,
@@ -52,12 +74,6 @@ export default function customers(state = initialState, action) {
         ...state,
         isModalDelete: false,
         selectedCustomerId: null
-      }
-
-    case CUSTOMER_REMOVE:
-      return {
-        ...state,
-        customersList: state.customersList.filter( customer => customer.id !== action.id)
       }
 
     case CUSTOMER_SHOW_MODAL_EDIT:

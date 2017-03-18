@@ -21,9 +21,32 @@ export function* deleteCustomer(action) {
     yield put(actions.hideDeleteCustomerModal());
   }
   catch(err) {
-    yield console.log('Delete Error');
+    yield console.log('Saga - Delete Customer: Error');
   }
 }
+
+export function* addNewCustomer(action) {
+  try {
+    const newCustomer = yield call(api.addNewCustomer, action.customer);
+    yield put(actions.insertCustomer(newCustomer));
+    yield put(actions.hideEditCustomerModal());
+  }
+  catch(err) {
+    yield console.log('Saga - Add New Customer: Error')
+  }
+}
+
+export function* updateCustomer(action) {
+  try {
+    const updatedCustomer = yield call(api.updateCustomer, action.id, action.customer);
+    yield put(actions.updateCustomerUI(updatedCustomer));
+    yield put(actions.hideEditCustomerModal());
+  }
+  catch(err) {
+    yield console.log('Saga - Add New Customer: Error')
+  }
+}
+
 
 
 // Watchers
@@ -32,12 +55,24 @@ export function* watchGetCustomers() {
 }
 
 export function* watchDeleteCustomer() {
-  yield takeEvery(actions.CUSTOMER_DELETE_REQUESTED, deleteCustomer)
+  yield takeEvery(actions.CUSTOMER_DELETE_REQUESTED, deleteCustomer);
 }
 
+export function* watchAddNewCustomer() {
+  yield takeEvery(actions.CUSTOMER_ADD_NEW_REQUESTED, addNewCustomer);
+}
+
+export function* watchUpdateCustomer() {
+  yield takeEvery(actions.CUSTOMER_UPDATE_REQUESTED, updateCustomer);
+}
+
+
+// Root Saga
 export default function* rootSaga() {
   yield [
     fork(watchGetCustomers),
     fork(watchDeleteCustomer),
+    fork(watchAddNewCustomer),
+    fork(watchUpdateCustomer),
   ]
 }
