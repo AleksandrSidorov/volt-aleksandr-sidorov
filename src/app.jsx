@@ -10,8 +10,8 @@ import App from './containers/App';
 
 import 'react-select/dist/react-select.css';
 
-import configureStore from './store/configureStore';
-import rootSaga from './sagas';
+import configureStore from './configureStore';
+import rootSaga from './Customers/sagas';
 
 const store = configureStore();
 store.runSaga(rootSaga);

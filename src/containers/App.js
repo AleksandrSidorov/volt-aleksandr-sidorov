@@ -3,9 +3,9 @@ import { Route } from 'react-router-dom';
 import Helmet from 'react-helmet';
 
 import Header from '../components/Header'
-import Customers from './Customers';
-import Products from './Products';
-import Invoices from './Invoices';
+import Customers from '../Customers/Customers';
+import Products from '../products/Products';
+import Invoices from '../Invoices/Invoices';
 
 class App extends Component {
   render() {
