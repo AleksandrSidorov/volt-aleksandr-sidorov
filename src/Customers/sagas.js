@@ -5,7 +5,7 @@ import * as actions from './actions';
 
 export function* getAllCustomers() {
   try {
-    const customers = yield call(api.getCustomers);
+    const customers = yield call(api.getItems, 'customers');
     yield put(actions.receiveAllCustomers(customers));
   }
   catch (err) {
@@ -15,7 +15,7 @@ export function* getAllCustomers() {
 
 export function* deleteCustomer(action) {
   try {
-    const result = yield call(api.deleteCustomer, action.id);
+    const result = yield call(api.deleteItem, action.id, 'customers');
     const deletedCustomerId = result.id
     yield put(actions.removeCustomer(deletedCustomerId));
     yield put(actions.hideDeleteCustomerModal());
@@ -27,7 +27,7 @@ export function* deleteCustomer(action) {
 
 export function* addNewCustomer(action) {
   try {
-    const newCustomer = yield call(api.addNewCustomer, action.customer);
+    const newCustomer = yield call(api.addNewItem, action.customer, 'customers');
     yield put(actions.insertCustomer(newCustomer));
     yield put(actions.hideEditCustomerModal());
   }
@@ -38,7 +38,7 @@ export function* addNewCustomer(action) {
 
 export function* updateCustomer(action) {
   try {
-    const updatedCustomer = yield call(api.updateCustomer, action.id, action.customer);
+    const updatedCustomer = yield call(api.updateItem, action.id, action.customer, 'customers');
     yield put(actions.updateCustomerUI(updatedCustomer));
     yield put(actions.hideEditCustomerModal());
   }
@@ -66,9 +66,8 @@ export function* watchUpdateCustomer() {
   yield takeEvery(actions.CUSTOMER_UPDATE_REQUESTED, updateCustomer);
 }
 
-
-// Root Saga
-export default function* rootSaga() {
+// Customers Root Saga
+export default function* customersSaga() {
   yield [
     fork(watchGetCustomers),
     fork(watchDeleteCustomer),

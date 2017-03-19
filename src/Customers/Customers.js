@@ -5,8 +5,8 @@ import { Button } from 'react-bootstrap';
 
 import FormCustomer from './FormCustomer'
 import CustomerList from '../components/CustomerList';
-import ModalDeleteCustomer from '../components/ModalDeleteCustomer';
-import ModalEditCustomer from '../components/ModalEditCustomer';
+import ModalDelete from '../components/ModalDelete';
+import ModalEdit from '../components/ModalEdit';
 import { selectedCustomerSelector } from './selectors';
 
 import {
@@ -42,19 +42,21 @@ class Customers extends Component {
           onDeleteClick={this.props.showDeleteCustomerModal}
           onEditClick={this.props.showEditCustomerModal}
         />
-        <ModalDeleteCustomer
-          customer={this.props.selectedCustomer}
+        <ModalDelete
+          item={this.props.selectedCustomer}
+          itemName='customer'
           show={this.props.isModalDelete}
           onHide={this.props.hideDeleteCustomerModal}
           onDeleteClick={this.props.deleteCustomer}
         />
-        <ModalEditCustomer
-          customer={this.props.selectedCustomer}
+        <ModalEdit
+          item={this.props.selectedCustomer}
+          itemName='customer'
           show={this.props.isModalEdit}
           onHide={this.props.hideEditCustomerModal}
         >
           <FormCustomer />
-        </ModalEditCustomer>
+        </ModalEdit>
       </div>
     )
   }

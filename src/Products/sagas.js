@@ -5,7 +5,7 @@ import * as actions from './actions';
 
 export function* getAllProducts() {
   try {
-    const products = yield call(api.getProducts);
+    const products = yield call(api.getItems, 'products');
     yield put(actions.receiveAllProducts(products));
   }
   catch (err) {
@@ -15,7 +15,7 @@ export function* getAllProducts() {
 
 export function* deleteProduct(action) {
   try {
-    const result = yield call(api.deleteProduct, action.id);
+    const result = yield call(api.deleteItem, action.id, 'products');
     const deletedProductId = result.id
     yield put(actions.removeProduct(deletedProductId));
     yield put(actions.hideDeleteProductModal());
@@ -27,7 +27,8 @@ export function* deleteProduct(action) {
 
 export function* addNewProduct(action) {
   try {
-    const newProduct = yield call(api.addNewProduct, action.product);
+    const newProduct = yield call(api.addNewItem, action.product, 'products');
+    console.log(newProduct);
     yield put(actions.insertProduct(newProduct));
     yield put(actions.hideEditProductModal());
   }
@@ -38,7 +39,8 @@ export function* addNewProduct(action) {
 
 export function* updateProduct(action) {
   try {
-    const updatedProduct = yield call(api.updateProduct, action.id, action.product);
+    const updatedProduct = yield call(api.updateItem, action.id, action.product, 'products');
+    console.log(updatedProduct);
     yield put(actions.updateProductUI(updatedProduct));
     yield put(actions.hideEditProductModal());
   }
@@ -51,24 +53,24 @@ export function* updateProduct(action) {
 
 // Watchers
 export function* watchGetProducts() {
-  yield takeEvery(actions.CUSTOMERS_FETCH_REQUESTED, getAllProducts);
+  yield takeEvery(actions.PRODUCTS_FETCH_REQUESTED, getAllProducts);
 }
 
 export function* watchDeleteProduct() {
-  yield takeEvery(actions.CUSTOMER_DELETE_REQUESTED, deleteProduct);
+  yield takeEvery(actions.PRODUCT_DELETE_REQUESTED, deleteProduct);
 }
 
 export function* watchAddNewProduct() {
-  yield takeEvery(actions.CUSTOMER_ADD_NEW_REQUESTED, addNewProduct);
+  yield takeEvery(actions.PRODUCT_ADD_NEW_REQUESTED, addNewProduct);
 }
 
 export function* watchUpdateProduct() {
-  yield takeEvery(actions.CUSTOMER_UPDATE_REQUESTED, updateProduct);
+  yield takeEvery(actions.PRODUCT_UPDATE_REQUESTED, updateProduct);
 }
 
 
-// Root Saga
-export default function* rootSaga() {
+// Products Root Saga
+export default function* productsSaga() {
   yield [
     fork(watchGetProducts),
     fork(watchDeleteProduct),

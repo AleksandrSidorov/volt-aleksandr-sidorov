@@ -53,6 +53,7 @@ export function removeProduct(id) {
 }
 
 export function addNewProductRequest(product) {
+  console.log('action: ', product);
   return {
     type: PRODUCT_ADD_NEW_REQUESTED,
     product

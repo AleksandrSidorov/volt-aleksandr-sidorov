@@ -2,9 +2,9 @@ import fetch from 'isomorphic-fetch';
 
 const baseUrl = 'http://localhost:8000/api';
 
-// Customers REST API Calls
-function getCustomers() {
-  return fetch(`${baseUrl}/customers`)
+// REST API Calls
+function getItems(component) {
+  return fetch(`${baseUrl}/${component}`)
     .then(res => {
       if(res.ok) {
         return res;
@@ -14,8 +14,8 @@ function getCustomers() {
     .then(res => res.json());
 }
 
-function deleteCustomer(id) {
-  return fetch(`${baseUrl}/customers/${id}`, { method: 'DELETE' })
+function deleteItem(id, component) {
+  return fetch(`${baseUrl}/${component}/${id}`, { method: 'DELETE' })
     .then(res => {
       if(res.ok) {
         return res;
@@ -25,58 +25,41 @@ function deleteCustomer(id) {
     .then(res => res.json());
 }
 
-function updateCustomer(id, customer) {
-  return fetch(`${baseUrl}/customers/${id}`,
+function updateItem(id, item, component) {
+  return fetch(`${baseUrl}/${component}/${id}`,
     {
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify(customer)
+      body: JSON.stringify(item)
     })
     .then(res => {
       if(res.ok) {
         return res;
       }
-      throw new Error('Update Customer: Network response was not ok.', res.status);
+      throw new Error('Update Item: Network response was not ok.', res.status);
     })
     .then(res => res.json());
 }
 
-function addNewCustomer(customer) {
-  return fetch(`${baseUrl}/customers`,
+function addNewItem(item, component) {
+  return fetch(`${baseUrl}/${component}`,
     {
       method: 'POST',
       headers: new Headers({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify(customer)
+      body: JSON.stringify(item)
     })
     .then(res => {
       if(res.ok) {
         return res;
       }
-      throw new Error('Add New Customer: Network response was not ok.', res.status);
+      throw new Error('Add New Item: Network response was not ok.', res.status);
     })
     .then(res => res.json());
 }
-
-//Products REST API Calls
-function getProducts() {
-  return fetch(`${baseUrl}/products`)
-    .then(res => {
-      if(res.ok) {
-        return res;
-      }
-      throw new Error('Network response was not ok.', res.status);
-    })
-    .then(res => res.json());
-}
-
-// Invoices
-
-// InvoiceItems
 
 export default {
-  getCustomers,
-  deleteCustomer,
-  getProducts,
-  addNewCustomer,
-  updateCustomer,
+  getItems,
+  deleteItem,
+  addNewItem,
+  updateItem,
 };
