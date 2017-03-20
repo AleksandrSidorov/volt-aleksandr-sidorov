@@ -39,6 +39,7 @@ export function* addNewProduct(action) {
 
 export function* updateProduct(action) {
   try {
+    console.log('before yield', action.product);
     const updatedProduct = yield call(api.updateItem, action.id, action.product, 'products');
     console.log(updatedProduct);
     yield put(actions.updateProductUI(updatedProduct));

@@ -8,27 +8,43 @@ import { selectedCustomerSelector } from './selectors';
 
 import FormInputField from '../components/FormInputField';
 
+const validate = values => {
+
+  const errors = {}
+
+  if (!values.name) {
+    errors.name = 'Required'
+  }
+
+  if (!values.address) {
+    errors.address = 'Required'
+  }
+
+  if (!values.phone) {
+    errors.phone = 'Required'
+  }
+
+  return errors
+}
+
 let FormCustomer = ({selectedCustomer, handleSubmit, addNewCustomer, updateCustomer, load, pristine, reset, submitting }) => {
   const submitFn = selectedCustomer ? updateCustomer : addNewCustomer
   return (
     <form onSubmit={handleSubmit(submitFn)}>
 
       <div>
-        <label>Name</label>
         <div>
-          <Field name="name" component={FormInputField} type="text" placeholder="Name"/>
+          <Field name="name" component={FormInputField} type="text" label="Name"/>
         </div>
       </div>
       <div>
-        <label>Address</label>
         <div>
-          <Field name="address" component={FormInputField} type="text" placeholder="Address"/>
+          <Field name="address" component={FormInputField} type="text" label="Address"/>
         </div>
       </div>
       <div>
-        <label>Phone</label>
         <div>
-          <Field name="phone" component={FormInputField} type="text" placeholder="Phone"/>
+          <Field name="phone" component={FormInputField} type="text" label="Phone"/>
         </div>
       </div>
       <div>
@@ -44,7 +60,8 @@ let FormCustomer = ({selectedCustomer, handleSubmit, addNewCustomer, updateCusto
 
 
 FormCustomer = reduxForm({
-  form: 'customerFrom'
+  form: 'customerFrom',
+  validate
 })(FormCustomer);
 
 
