@@ -9,13 +9,10 @@ import { selectedProductSelector } from './selectors';
 import FormInputField from '../components/FormInputField';
 
 const validate = values => {
-
   const errors = {}
-
   if (!values.name) {
     errors.name = 'Required'
   }
-
   if (!values.price) {
     errors.price = 'Required'
   } else if (isNaN(Number(values.price))) {
@@ -23,11 +20,16 @@ const validate = values => {
   } else if (Number(values.price) < 0) {
     errors.price = 'Price must be equal or greater than 0'
   }
-
   return errors
 }
 
 const toNumber = value => Number(value);
+
+const positivePrice = value => {
+  console.log('pos', value);
+  if (value < 0 ) return 0;
+  return value;
+}
 
 let FormProduct = ({selectedProduct, handleSubmit, addNewProduct, updateProduct, load, pristine, reset, submitting }) => {
   const submitFn = selectedProduct ? updateProduct : addNewProduct
@@ -52,6 +54,7 @@ let FormProduct = ({selectedProduct, handleSubmit, addNewProduct, updateProduct,
             component={FormInputField}
             label="Price"
             parse={toNumber}
+            normalize={positivePrice}
           />
         </div>
       </div>

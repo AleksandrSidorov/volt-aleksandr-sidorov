@@ -8,23 +8,29 @@ import { selectedCustomerSelector } from './selectors';
 
 import FormInputField from '../components/FormInputField';
 
+// Redux-form validator
 const validate = values => {
-
   const errors = {}
-
   if (!values.name) {
     errors.name = 'Required'
   }
-
   if (!values.address) {
     errors.address = 'Required'
   }
-
   if (!values.phone) {
     errors.phone = 'Required'
   }
-
   return errors
+}
+
+// Redux-form normalizer for Phone field
+// format: nnn-nnn-nnnn
+const normalizePhone = (value) => {
+  if(!value) return value;
+  const onlyNums = value.replace(/[^\d]/g, '');
+  if (onlyNums.length <= 3) return onlyNums;
+  if (onlyNums.length <= 7) return `${onlyNums.slice(0, 3)}-${onlyNums.slice(3)}`;
+  return `${onlyNums.slice(0, 3)}-${onlyNums.slice(3, 6)}-${onlyNums.slice(6, 10)}`;
 }
 
 let FormCustomer = ({selectedCustomer, handleSubmit, addNewCustomer, updateCustomer, load, pristine, reset, submitting }) => {
@@ -34,17 +40,33 @@ let FormCustomer = ({selectedCustomer, handleSubmit, addNewCustomer, updateCusto
 
       <div>
         <div>
-          <Field name="name" component={FormInputField} type="text" label="Name"/>
+          <Field
+            name="name"
+            component={FormInputField}
+            type="text"
+            label="Name"
+          />
         </div>
       </div>
       <div>
         <div>
-          <Field name="address" component={FormInputField} type="text" label="Address"/>
+          <Field
+            name="address"
+            component={FormInputField}
+            type="text"
+            label="Address"
+          />
         </div>
       </div>
       <div>
         <div>
-          <Field name="phone" component={FormInputField} type="text" label="Phone"/>
+          <Field
+            name="phone"
+            component={FormInputField}
+            type="text"
+            label="Phone"
+            normalize={normalizePhone}
+          />
         </div>
       </div>
       <div>
