@@ -1,10 +1,11 @@
 import fetch from 'isomorphic-fetch';
 
 
-const port = process.env.PORT || 8000;
-const host = process.env.HOST || 'localhost';
+//const port = process.env.PORT || 8000;
+//const host = process.env.HOST || 'localhost';
 
-const baseUrl = `http://${host}:${port}/api`;
+//const baseUrl = `http://${host}:${port}/api`;
+const baseUrl = `/api`;
 
 // REST API Calls
 function getItems(component) {
