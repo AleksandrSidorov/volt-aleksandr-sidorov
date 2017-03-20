@@ -11,7 +11,7 @@ sequelize = new Sequelize('sqlite://' + path.join(__dirname, 'invoices.sqlite'),
   storage: path.join(__dirname, 'invoices.sqlite')
 });
 
-Customer = sequelize.define('customers', { 
+Customer = sequelize.define('customers', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -28,7 +28,7 @@ Customer = sequelize.define('customers', {
   }
 });
 
-Product = sequelize.define('products', { 
+Product = sequelize.define('products', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -140,6 +140,7 @@ sequelize.sync()
 
 var app = module.exports = express();
 app.set('port', process.env.PORT || 8000);
+app.get('host', process.env.HOST || 'localhost');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -164,7 +165,7 @@ app.route('/api/customers/:customer_id')
     Customer.findById(req.params.customer_id).then(function(customer) {
       res.json(customer);
     });
-  }) 
+  })
   .put(function(req, res) {
     Customer.findById(req.params.customer_id).then(function(customer) {
       customer.update(_.pick(req.body, ['name', 'address', 'phone'])).then(function(customer) {
@@ -200,7 +201,7 @@ app.route('/api/products/:product_id')
     Product.findById(req.params.product_id).then(function(product) {
       res.json(product);
     });
-  }) 
+  })
   .put(function(req, res) {
     Product.findById(req.params.product_id).then(function(product) {
       product.update(_.pick(req.body, ['name', 'price'])).then(function(product) {
@@ -237,7 +238,7 @@ app.route('/api/invoices/:invoice_id')
     Invoice.findById(req.params.invoice_id).then(function(invoice) {
       res.json(invoice);
     });
-  }) 
+  })
   .put(function(req, res) {
     Invoice.findById(req.params.invoice_id).then(function(invoice) {
       invoice.update(_.pick(req.body, ['customer_id', 'discount', 'total'])).then(function(invoice) {
@@ -275,7 +276,7 @@ app.route('/api/invoices/:invoice_id/items/:id')
     InvoiceItem.findById(req.params.id).then(function(invoice_item) {
       res.json(invoice_item);
     });
-  }) 
+  })
   .put(function(req, res) {
     InvoiceItem.findById(req.params.id).then(function(invoice_item) {
       invoice_item.update(_.pick(req.body, ['product_id', 'quantity'])).then(function(invoice_item) {
@@ -329,6 +330,6 @@ if (isDeveloping) {
 }
 
 // Starting express server
-http.createServer(app).listen(app.get('port'), function () {
+http.createServer(app).listen(app.get('port'), app.get('host'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
