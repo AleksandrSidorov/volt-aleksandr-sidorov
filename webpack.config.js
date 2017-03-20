@@ -35,16 +35,20 @@ module.exports = {
     })
   ],
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader',
-      query: {
-        presets: [ 'stage-0', 'es2015', 'react' ]
+    loaders:
+    [
+      {
+        test: /\.(jsx|js)?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: [ 'stage-0', 'es2015', 'react' ]
+        }
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css'
       }
-    }, {
-      test: /\.css$/,
-      loader: 'style!css'
-    }]
+    ]
   }
 };

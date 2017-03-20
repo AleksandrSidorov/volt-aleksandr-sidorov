@@ -26,7 +26,6 @@ const validate = values => {
 const toNumber = value => Number(value);
 
 const positivePrice = value => {
-  console.log('pos', value);
   if (value < 0 ) return 0;
   return value;
 }

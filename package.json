@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "build": "webpack -d",
-    "watch": "webpack --progress --colors --watch",
-    "heroku-postbuild": "npm run build"
+    "build:dist": "webpack -p --config ./webpack.production.config.js --progress --profile --colors",
+    "watch": "webpack --config ./webpack.production.config.js --progress --colors --watch",
+    "heroku-postbuild": "npm run build:dist"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
