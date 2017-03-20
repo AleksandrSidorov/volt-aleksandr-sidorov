@@ -140,7 +140,7 @@ sequelize.sync()
 
 var app = module.exports = express();
 app.set('port', process.env.PORT || 8000);
-app.get('host', process.env.HOST || 'localhost');
+app.set('host', process.env.HOST || 'localhost');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -331,5 +331,5 @@ if (isDeveloping) {
 
 // Starting express server
 http.createServer(app).listen(app.get('port'), app.get('host'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on ' + app.get('host') + ':' + app.get('port'));
 });
