@@ -27,11 +27,7 @@ const validate = values => {
   return errors
 }
 
-const toNumber = value => {
-  const result = Number(value);
-  console.log(result);
-  return result;
-}
+const toNumber = value => Number(value);
 
 let FormProduct = ({selectedProduct, handleSubmit, addNewProduct, updateProduct, load, pristine, reset, submitting }) => {
   const submitFn = selectedProduct ? updateProduct : addNewProduct
@@ -53,7 +49,7 @@ let FormProduct = ({selectedProduct, handleSubmit, addNewProduct, updateProduct,
           <Field
             name="price"
             type="number"
-            component="input"
+            component={FormInputField}
             label="Price"
             parse={toNumber}
           />

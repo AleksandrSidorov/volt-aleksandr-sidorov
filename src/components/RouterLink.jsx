@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const RouterLink = ({ to, children }) => {
   return (
     <li>
-      <NavLink to={to} activeStyle={{ color: '#d9230f' }}>{children}</NavLink>
+      <NavLink to={to} activeStyle={{ color: '#0f0f0f' }}>{children}</NavLink>
     </li>
   )
 }

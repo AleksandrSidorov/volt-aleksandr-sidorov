@@ -28,7 +28,6 @@ export function* deleteProduct(action) {
 export function* addNewProduct(action) {
   try {
     const newProduct = yield call(api.addNewItem, action.product, 'products');
-    console.log(newProduct);
     yield put(actions.insertProduct(newProduct));
     yield put(actions.hideEditProductModal());
   }
@@ -39,9 +38,7 @@ export function* addNewProduct(action) {
 
 export function* updateProduct(action) {
   try {
-    console.log('before yield', action.product);
     const updatedProduct = yield call(api.updateItem, action.id, action.product, 'products');
-    console.log(updatedProduct);
     yield put(actions.updateProductUI(updatedProduct));
     yield put(actions.hideEditProductModal());
   }
