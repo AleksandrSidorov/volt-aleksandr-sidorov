@@ -32,7 +32,7 @@ class Products extends Component {
     return (
       <div>
         <Helmet title="Products" />
-        <h2>Products Here</h2>
+        <h2>Products</h2>
         <Button onClick={() => this.props.showEditProductModal(null)}>Add New Product</Button>
         {
           this.props.isFetching ? <p>Loading...</p> : null
