@@ -30,7 +30,18 @@ const positiveNumber = value => {
   return value;
 }
 
-let FormInvoice = ({selectedInvoice, handleSubmit, addNewInvoice, updateInvoice, load, pristine, reset, submitting }) => {
+let FormInvoice = ({
+  selectedInvoice,
+  customersList,
+  productsList,
+  handleSubmit,
+  addNewInvoice,
+  updateInvoice,
+  load,
+  pristine,
+  reset,
+  submitting
+}) => {
   const submitFn = selectedInvoice ? updateInvoice : addNewInvoice
   return (
     <form onSubmit={handleSubmit(submitFn)}>
@@ -39,12 +50,15 @@ let FormInvoice = ({selectedInvoice, handleSubmit, addNewInvoice, updateInvoice,
         <Field
           name="customer_id"
           type="text"
-          component="select"
+          componentClass="select"
+          component={FormInputField}
           label="Customer"
         >
-          <option value="1">Customer Test 1</option>
-          <option value="2">Customer Test 2</option>
-          <option value="3">Customer Test 3</option>
+          {
+            customersList.map(customer => {
+              return <option key={customer.id} value={customer.id}>{customer.name}</option>
+            })
+          }
         </Field>
       </div>
       <div>
@@ -61,12 +75,15 @@ let FormInvoice = ({selectedInvoice, handleSubmit, addNewInvoice, updateInvoice,
         <Field
           name="addproduct"
           type="text"
-          component="select"
+          componentClass="select"
+          component={FormInputField}
           label="Add Product"
         >
-          <option value="1">Test 1</option>
-          <option value="2">Test 2</option>
-          <option value="3">Test 3</option>
+          {
+            productsList.map(product => {
+              return <option key={product.id} value={product.id}>{product.name}</option>
+            })
+          }
         </Field>
       </div>
       <div>
@@ -90,6 +107,8 @@ FormInvoice = reduxForm({
 function mapStateToProps (state) {
   return {
     selectedInvoice: selectedInvoiceSelector(state),
+    customersList:  state.customers.customersList,
+    productsList: state.products.productsList,
     initialValues: selectedInvoiceSelector(state) || {name: "", discount: 0}
   }
 }

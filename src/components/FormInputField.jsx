@@ -6,7 +6,7 @@ const FormInputField = ({ input, type, label, meta: { touched, error }, ...custo
   return (
     <FormGroup controlId={input.name} validationState={val}>
       <ControlLabel>{label}</ControlLabel>
-      <FormControl type={type} {...input} />
+      <FormControl type={type} {...input} {...custom} />
       <HelpBlock>{touched && error && <span>{error}</span>}</HelpBlock>
     </FormGroup>
   )
