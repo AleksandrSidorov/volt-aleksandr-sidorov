@@ -1,15 +1,14 @@
 import fetch from 'isomorphic-fetch';
 
-
-//const port = process.env.PORT || 8000;
-//const host = process.env.HOST || 'localhost';
-
-//const baseUrl = `http://${host}:${port}/api`;
 const baseUrl = `/api`;
 
 // REST API Calls
-function getItems(component) {
-  return fetch(`${baseUrl}/${component}`)
+function getItems(component, invoiceId=false) {
+  let invoiceUrl = '';
+  if (invoiceId !== false) {
+    invoiceUrl = `/${invoiceId}/invoices`;
+  }
+  return fetch(`${baseUrl}/${component}${invoiceUrl}`)
     .then(res => {
       if(res.ok) {
         return res;
@@ -46,8 +45,12 @@ function updateItem(id, item, component) {
     .then(res => res.json());
 }
 
-function addNewItem(item, component) {
-  return fetch(`${baseUrl}/${component}`,
+function addNewItem(item, component, invoiceId=false) {
+  let invoiceUrl = '';
+  if (invoiceId !== false) {
+    invoiceUrl=`/${invoiceId}/items`
+  }
+  return fetch(`${baseUrl}/${component}${invoiceUrl}`,
     {
       method: 'POST',
       headers: new Headers({ 'Content-Type': 'application/json' }),

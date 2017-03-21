@@ -48,6 +48,16 @@ export function* updateInvoice(action) {
 }
 
 
+export function* getAllInvoiceItems(action) {
+  try {
+    const invoices = yield call(api.getItems, 'invoices', action.id);
+    yield put(actions.receiveAllInvoiceItems(invoiceItems));
+  }
+  catch (err) {
+    yield put(actions.receiveAllInvoiceItemsFailed(err));
+  }
+}
+
 
 // Watchers
 export function* watchGetInvoices() {
@@ -66,6 +76,10 @@ export function* watchUpdateInvoice() {
   yield takeEvery(actions.INVOICE_UPDATE_REQUESTED, updateInvoice);
 }
 
+export function* watchGetInvoiceItems() {
+  yield takeEvery(actions.INVOICEITEMS_FETCH_REQUESTED, getAllInvoiceItems);
+}
+
 
 // Invoices Root Saga
 export default function* invoicesSaga() {
@@ -74,5 +88,6 @@ export default function* invoicesSaga() {
     fork(watchDeleteInvoice),
     fork(watchAddNewInvoice),
     fork(watchUpdateInvoice),
+    fork(watchGetInvoiceItems),
   ]
 }

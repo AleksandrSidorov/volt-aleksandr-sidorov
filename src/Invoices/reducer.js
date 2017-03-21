@@ -12,10 +12,14 @@ import {
   INVOICE_HIDE_MODAL_DELETE,
   INVOICE_SHOW_MODAL_EDIT,
   INVOICE_HIDE_MODAL_EDIT,
+  INVOICEITEMS_FETCH_REQUESTED,
+  INVOICEITEMS_FETCH_RECEIVED,
+  INVOICEITEMS_FETCH_FAILED,
 } from './actions';
 
 const initialState = {
   invoicesList: [],
+  invoiceItemsList: [],
   selectedInvoiceId: null,
   isFetching: false,
   errorMessage: null,
@@ -66,6 +70,7 @@ export default function invoices(state = initialState, action) {
       }
 
     case INVOICE_SET_SELECTED_ID:
+      console.log('Reducer. Set ii', action.id);
       return {
         ...state,
         selectedInvoiceId: action.id
@@ -77,6 +82,8 @@ export default function invoices(state = initialState, action) {
         selectedInvoiceId: null
       }
 
+
+    // Modals
     case INVOICE_SHOW_MODAL_DELETE:
       return {
         ...state,
@@ -102,6 +109,28 @@ export default function invoices(state = initialState, action) {
         ...state,
         isModalEdit: false,
         selectedInvoiceId: null
+      }
+
+    // Invoice items
+    case INVOICEITEMS_FETCH_REQUESTED:
+      return {
+        ...state,
+        invoiceItemsList: [],
+        isFetching: true,
+        errorMessage: null
+      }
+    case INVOICEITEMS_FETCH_RECEIVED:
+      return {
+        ...state,
+        invoiceItemsList: action.invoices,
+        isFetching: false,
+        errorMessage: null
+      }
+    case INVOICEITEMS_FETCH_FAILED:
+      return {
+        ...state,
+        isFetching: false,
+        errorMessage: action.err
       }
 
     default:

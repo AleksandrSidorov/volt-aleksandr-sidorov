@@ -45,8 +45,6 @@ let FormInvoice = ({
   const submitFn = selectedInvoice ? updateInvoice : addNewInvoice
   return (
     <form onSubmit={handleSubmit(submitFn)}>
-
-      <div>
         <Field
           name="customer_id"
           type="text"
@@ -60,8 +58,6 @@ let FormInvoice = ({
             })
           }
         </Field>
-      </div>
-      <div>
         <Field
           name="discount"
           type="number"
@@ -70,8 +66,6 @@ let FormInvoice = ({
           parse={toNumber}
           normalize={positiveNumber}
         />
-      </div>
-      <div>
         <Field
           name="addproduct"
           type="text"
@@ -85,7 +79,7 @@ let FormInvoice = ({
             })
           }
         </Field>
-      </div>
+        <Button>Add</Button>
       <div>
         <ButtonGroup>
           { selectedInvoice ?  <Button bsStyle="info" type="submit" disabled={pristine || submitting}>Submit Changes</Button> :

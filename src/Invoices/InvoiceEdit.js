@@ -7,6 +7,7 @@ import {
   getAllInvoices,
   setSelectedInvoiceId,
   clearSelectedInvoiceId,
+  getAllInvoiceItems,
 } from './actions';
 import { getAllCustomers } from '../Customers/actions';
 import { getAllProducts } from '../Products/actions';
@@ -18,7 +19,7 @@ class InvoiceEdit extends Component {
   componentWillMount() {
     const id = this.props.match.params.id;
     if (!isNaN(Number(id))) {
-      console.log(id);
+      console.log('will set selectedInvoiceId', id);
       this.props.setSelectedInvoiceId(Number(id));
     }
   }
@@ -37,6 +38,11 @@ class InvoiceEdit extends Component {
     if (this.props.productsList.length == 0) {
       console.log("Receiving products from DB.");
       this.props.getAllProducts();
+    }
+    console.log('did mount', this.props.selectedInvoiceId);
+    if (this.props.selectedInvoiceId) {
+      console.log('Receiving Invoice Items List.');
+      this.props.getAllInvoiceItems(this.props.selectedInvoiceId);
     }
   }
 
@@ -70,6 +76,7 @@ function mapStateToProps (state) {
     errorMessageProducts: state.products.errorMessage,
 
     invoicesList: state.invoices.invoicesList,
+    invoiseItemsList: state.invoices.invoiceItemsList,
     selectedInvoiceId: state.invoices.selectedInvoiceId,
     isFetching: state.invoices.isFetching,
     errorMessage: state.invoices.errorMessage,
@@ -86,6 +93,7 @@ function mapDispatchToProps(dispatch) {
     getAllCustomers: () => dispatch(getAllCustomers()),
     getAllProducts: () => dispatch(getAllProducts()),
     getAllInvoices: () => dispatch(getAllInvoices()),
+    getAllInvoiceItems: (id) => dispatch(getAllInvoiceItems(id)),
   }
 }
 
