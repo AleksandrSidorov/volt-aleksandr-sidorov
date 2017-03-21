@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import Customers from '../Customers/Customers';
 import Products from '../Products/Products';
 import Invoices from '../Invoices/Invoices';
+import InvoiceEdit from '../Invoices/InvoiceEdit';
 
 class App extends Component {
   render() {
@@ -17,7 +18,8 @@ class App extends Component {
           <Route exact={true} path="/" render={() => <h2>Hello</h2>} />
           <Route path='/customers' component={Customers} />
           <Route path='/products' component={Products} />
-          <Route path='/invoices' component={Invoices} />
+          <Route exact={true} path='/invoices' component={Invoices} />
+          <Route path='/invoices/:id' component={InvoiceEdit} />
         </div>
       </div>
     )

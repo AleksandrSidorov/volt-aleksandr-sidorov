@@ -13,7 +13,7 @@ const validate = values => {
   if (!values.name) {
     errors.name = 'Required'
   }
-  if (!values.price) {
+  if (values.price.length === 0) {
     errors.price = 'Required'
   } else if (isNaN(Number(values.price))) {
     errors.price = 'Must be a number'
@@ -26,7 +26,6 @@ const validate = values => {
 const toNumber = value => Number(value);
 
 const positivePrice = value => {
-  console.log('pos', value);
   if (value < 0 ) return 0;
   return value;
 }

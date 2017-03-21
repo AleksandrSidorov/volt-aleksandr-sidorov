@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "webpack -d",
-    "watch": "webpack --progress --colors --watch",
+    "build:dist": "webpack -d --config ./webpack.production.config.js --progress --profile --colors",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {

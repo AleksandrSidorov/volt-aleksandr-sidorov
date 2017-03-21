@@ -14,11 +14,13 @@ import 'react-select/dist/react-select.css';
 import configureStore from './configureStore';
 import customersSaga from './Customers/sagas';
 import productsSaga from './Products/sagas';
+import invoicesSaga from './Invoices/sagas';
 
 function* daSaga() {
   yield [
     fork(customersSaga),
-    fork(productsSaga)
+    fork(productsSaga),
+    fork(invoicesSaga)
   ]
 }
 

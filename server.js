@@ -134,6 +134,12 @@ sequelize.sync()
     price: 21.99
   });
 
+  Invoice.create({
+    customer_id: 134,
+    discount: 1,
+    total: 0
+  })
+
 }).catch(function(e) {
   console.log("ERROR SYNCING WITH DB", e);
 });
