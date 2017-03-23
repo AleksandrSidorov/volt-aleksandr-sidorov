@@ -12,14 +12,10 @@ import {
   INVOICE_HIDE_MODAL_DELETE,
   INVOICE_SHOW_MODAL_EDIT,
   INVOICE_HIDE_MODAL_EDIT,
-  INVOICEITEMS_FETCH_REQUESTED,
-  INVOICEITEMS_FETCH_RECEIVED,
-  INVOICEITEMS_FETCH_FAILED,
 } from './actions';
 
 const initialState = {
   invoicesList: [],
-  invoiceItemsList: [],
   selectedInvoiceId: null,
   isFetching: false,
   errorMessage: null,
@@ -110,29 +106,6 @@ export default function invoices(state = initialState, action) {
         isModalEdit: false,
         selectedInvoiceId: null
       }
-
-    // Invoice items
-    case INVOICEITEMS_FETCH_REQUESTED:
-      return {
-        ...state,
-        invoiceItemsList: [],
-        isFetching: true,
-        errorMessage: null
-      }
-    case INVOICEITEMS_FETCH_RECEIVED:
-      return {
-        ...state,
-        invoiceItemsList: action.invoices,
-        isFetching: false,
-        errorMessage: null
-      }
-    case INVOICEITEMS_FETCH_FAILED:
-      return {
-        ...state,
-        isFetching: false,
-        errorMessage: action.err
-      }
-
     default:
       return state;
   }

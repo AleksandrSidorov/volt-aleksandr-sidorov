@@ -17,6 +17,7 @@ import {
   showDeleteInvoiceModal,
   hideDeleteInvoiceModal,
 } from './actions';
+import { getAllCustomers } from '../Customers/actions';
 
 class Invoices extends Component {
 
@@ -24,6 +25,11 @@ class Invoices extends Component {
     if (this.props.invoicesList.length == 0) {
       console.log("List in state is empty. Receiving invoices from DB.");
       this.props.getAllInvoices();
+    }
+
+    if (this.props.customersList.length == 0) {
+      console.log("Receiving customers from DB.");
+      this.props.getAllCustomers();
     }
   }
 
@@ -38,6 +44,7 @@ class Invoices extends Component {
         }
         <InvoiceList
           invoicesList={this.props.invoicesList}
+          customersList={this.props.customersList}
           onDeleteClick={this.props.showDeleteInvoiceModal}
         />
         <ModalDelete
@@ -60,12 +67,18 @@ function mapStateToProps (state) {
     errorMessage: state.invoices.errorMessage,
     isModalDelete: state.invoices.isModalDelete,
     selectedInvoice: selectedInvoiceSelector(state),
+
+    customersList: state.customers.customersList,
+    selectedCustomerId: state.customers.selectedCustomerId,
+    isFetchingCustomers: state.customers.isFetching,
+    errorMessageCustomers: state.customers.errorMessage,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getAllInvoices: () => dispatch(getAllInvoices()),
+    getAllCustomers: () => dispatch(getAllCustomers()),
     deleteInvoice: (id) => dispatch(deleteInvoiceRequest(id)),
     showDeleteInvoiceModal: (id) => dispatch(showDeleteInvoiceModal(id)),
     hideDeleteInvoiceModal: () => dispatch(hideDeleteInvoiceModal()),

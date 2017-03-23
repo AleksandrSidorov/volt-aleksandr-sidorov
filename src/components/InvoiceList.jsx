@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Table, ButtonGroup, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const InvoiceList = ({ invoicesList, onDeleteClick }) => {
+const InvoiceList = ({ invoicesList, customersList, onDeleteClick }) => {
   return (
     <Table striped hover>
       <thead>
@@ -21,7 +21,7 @@ const InvoiceList = ({ invoicesList, onDeleteClick }) => {
               return (
                 <tr key={index}>
                   <td>{invoice.id}</td>
-                  <td>{invoice.customer_id}</td>
+                  <td>{customersList.filter(customer => customer.id == invoice.customer_id)[0].name}</td>
                   <td>{invoice.discount}</td>
                   <td>{invoice.total}</td>
                   <td>

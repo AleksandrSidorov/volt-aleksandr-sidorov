@@ -6,6 +6,7 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import { addNewInvoiceRequest, updateInvoiceRequest } from './actions'
 import { selectedInvoiceSelector } from './selectors';
 
+import InvoiceItems from '../InvoiceItems/InvoiceItems';
 import FormInputField from '../components/FormInputField';
 
 const validate = values => {
@@ -45,41 +46,28 @@ let FormInvoice = ({
   const submitFn = selectedInvoice ? updateInvoice : addNewInvoice
   return (
     <form onSubmit={handleSubmit(submitFn)}>
-        <Field
-          name="customer_id"
-          type="text"
-          componentClass="select"
-          component={FormInputField}
-          label="Customer"
-        >
-          {
-            customersList.map(customer => {
-              return <option key={customer.id} value={customer.id}>{customer.name}</option>
-            })
-          }
-        </Field>
-        <Field
-          name="discount"
-          type="number"
-          component={FormInputField}
-          label="Discount (%)"
-          parse={toNumber}
-          normalize={positiveNumber}
-        />
-        <Field
-          name="addproduct"
-          type="text"
-          componentClass="select"
-          component={FormInputField}
-          label="Add Product"
-        >
-          {
-            productsList.map(product => {
-              return <option key={product.id} value={product.id}>{product.name}</option>
-            })
-          }
-        </Field>
-        <Button>Add</Button>
+      <Field
+        name="customer_id"
+        type="text"
+        componentClass="select"
+        component={FormInputField}
+        label="Customer"
+      >
+        {
+          customersList.map(customer => {
+            return <option key={customer.id} value={customer.id}>{customer.name}</option>
+          })
+        }
+      </Field>
+      <Field
+        name="discount"
+        type="number"
+        component={FormInputField}
+        label="Discount (%)"
+        parse={toNumber}
+        normalize={positiveNumber}
+      />
+      <InvoiceItems />
       <div>
         <ButtonGroup>
           { selectedInvoice ?  <Button bsStyle="info" type="submit" disabled={pristine || submitting}>Submit Changes</Button> :
@@ -102,7 +90,6 @@ function mapStateToProps (state) {
   return {
     selectedInvoice: selectedInvoiceSelector(state),
     customersList:  state.customers.customersList,
-    productsList: state.products.productsList,
     initialValues: selectedInvoiceSelector(state) || {name: "", discount: 0}
   }
 }

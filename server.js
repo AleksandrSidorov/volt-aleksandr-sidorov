@@ -135,10 +135,47 @@ sequelize.sync()
   });
 
   Invoice.create({
-    customer_id: 134,
+    customer_id: 2,
     discount: 1,
     total: 0
-  })
+  });
+
+  Invoice.create({
+    customer_id: 1,
+    discount: 2,
+    total: 0
+  });
+
+  InvoiceItem.create({
+    invoice_id: 1,
+    product_id: 1,
+    quantity: 2
+  });
+
+  InvoiceItem.create({
+    invoice_id: 1,
+    product_id: 2,
+    quantity: 3
+  });
+
+  InvoiceItem.create({
+    invoice_id: 1,
+    product_id: 3,
+    quantity: 1
+  });
+
+  InvoiceItem.create({
+    invoice_id: 2,
+    product_id: 1,
+    quantity: 1
+  });
+
+  InvoiceItem.create({
+    invoice_id: 2,
+    product_id: 5,
+    quantity: 3
+  });
+
 
 }).catch(function(e) {
   console.log("ERROR SYNCING WITH DB", e);

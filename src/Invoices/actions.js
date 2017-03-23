@@ -18,10 +18,6 @@ export const INVOICE_SHOW_MODAL_DELETE = 'INVOICE_SHOW_MODAL_DELETE';
 export const INVOICE_HIDE_MODAL_DELETE = 'INVOICE_HIDE_MODAL_DELETE';
 export const INVOICE_SHOW_MODAL_EDIT = 'INVOICE_SHOW_MODAL_EDIT';
 export const INVOICE_HIDE_MODAL_EDIT = 'INVOICE_HIDE_MODAL_EDIT';
-// Invoice items
-export const INVOICEITEMS_FETCH_REQUESTED = 'INVOICEITEMS_FETCH_REQUESTED';
-export const INVOICEITEMS_FETCH_RECEIVED = 'INVOICEITEMS_FETCH_RECEIVED';
-export const INVOICEITEMS_FETCH_FAILED = 'INVOICEITEMS_FETCH_FAILED';
 
 // Invoices Actions
 export function getAllInvoices() {
@@ -125,30 +121,5 @@ export function showEditInvoiceModal(id) {
 export function hideEditInvoiceModal() {
   return {
     type: INVOICE_HIDE_MODAL_EDIT,
-  }
-}
-
-
-// Invoice Item actions
-export function getAllInvoiceItems(id) {
-  console.log('II requested ', id);
-  return {
-    type: INVOICEITEMS_FETCH_REQUESTED,
-    id
-  }
-}
-
-export function receiveAllInvoiceItems(invoiceItems) {
-  console.log('II received ', invoiceItems);
-  return {
-    type: INVOICEITEMS_FETCH_RECEIVED,
-    invoiceItems
-  }
-}
-
-export function receiveAllInvoiceItemsFailed(err) {
-  return {
-    type: INVOICEITEMS_FETCH_FAILED,
-    err
   }
 }

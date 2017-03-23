@@ -15,6 +15,7 @@ import configureStore from './configureStore';
 import customersSaga from './Customers/sagas';
 import productsSaga from './Products/sagas';
 import invoicesSaga from './Invoices/sagas';
+import incoiceIntemsSaga from './InvoiceItems/sagas';
 
 function* daSaga() {
   yield [
