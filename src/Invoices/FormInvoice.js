@@ -45,6 +45,7 @@ let FormInvoice = ({
 }) => {
   const submitFn = selectedInvoice ? updateInvoice : addNewInvoice
   return (
+    <div>
     <form onSubmit={handleSubmit(submitFn)}>
       <Field
         name="customer_id"
@@ -67,15 +68,16 @@ let FormInvoice = ({
         parse={toNumber}
         normalize={positiveNumber}
       />
-      <InvoiceItems />
       <div>
         <ButtonGroup>
           { selectedInvoice ?  <Button bsStyle="info" type="submit" disabled={pristine || submitting}>Submit Changes</Button> :
-                                <Button bsStyle="success" type="submit" disabled={pristine || submitting}>Add New Invoice</Button> }
+          <Button bsStyle="success" type="submit" disabled={pristine || submitting}>Add New Invoice</Button> }
           <Button type="button" disabled={pristine || submitting} onClick={reset}>Undo Changes</Button>
         </ButtonGroup>
       </div>
     </form>
+    <InvoiceItems />
+  </div>
   )
 }
 

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { Field } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 
 import FormInputField from '../components/FormInputField';
 
@@ -18,31 +18,44 @@ class InvoiceItems extends Component {
   componentDidMount() {
     if (this.props.invoiceItemsList.length == 0) {
       console.log("List in state is empty. Receiving invoice items from DB.");
-      this.props.getAllInvoiceItems(selectedInvoiceId);
+      console.log("II selectedInvoiceId", this.props.selectedInvoiceId);
+      this.props.getAllInvoiceItems(this.props.selectedInvoiceId);
     }
   }
 
   render() {
+    console.log("II List", this.props.invoiceItemsList);
     return (
-      <div>
-        <Field
-          name="addproduct"
-          type="text"
-          componentClass="select"
-          component={FormInputField}
-          label="Add Product"
-        >
+      <form>
+        <div>
+          <Field
+            name="addproduct"
+            type="text"
+            componentClass="select"
+            component={FormInputField}
+            label="Add Product"
+          >
+            {
+              this.props.productsList.map(product => {
+                return <option key={product.id} value={product.id}>{product.name}</option>
+              })
+            }
+          </Field>
+          <Button>Add</Button>
           {
-            this.props.productsList.map(product => {
-              return <option key={product.id} value={product.id}>{product.name}</option>
+            this.props.invoiceItemsList.map(ii => {
+              return <div>ii.id</div>
             })
           }
-        </Field>
-        <Button>Add</Button>
-      </div>
+        </div>
+      </form>
     )
   }
 }
+
+InvoiceItems = reduxForm({
+  form: 'invoiceItemsFrom',
+})(InvoiceItems);
 
 function mapStateToProps (state) {
   return {

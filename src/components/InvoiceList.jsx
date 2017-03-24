@@ -21,7 +21,7 @@ const InvoiceList = ({ invoicesList, customersList, onDeleteClick }) => {
               return (
                 <tr key={index}>
                   <td>{invoice.id}</td>
-                  <td>{customersList.filter(customer => customer.id == invoice.customer_id)[0].name}</td>
+                  <td>{invoice.customer_id}</td>
                   <td>{invoice.discount}</td>
                   <td>{invoice.total}</td>
                   <td>

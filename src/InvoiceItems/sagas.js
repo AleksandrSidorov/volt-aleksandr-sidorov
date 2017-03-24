@@ -3,13 +3,13 @@ import api from '../api';
 import * as actions from './actions';
 
 
-export function* getAllInvoiceItems() {
+export function* getInvoiceItems(action) {
   try {
-    const invoiceItems = yield call(api.getItems, 'invoiceItems');
-    yield put(actions.receiveAllInvoiceItems(invoiceItems));
+    const invoiceItems = yield call(api.getItems, 'invoiceItems', action.id);
+    yield put(actions.receiveInvoiceItems(invoiceItems));
   }
   catch (err) {
-    yield put(actions.receiveAllInvoiceItemsFailed(err));
+    yield put(actions.receiveInvoiceItemsFailed(err));
   }
 }
 
@@ -51,7 +51,7 @@ export function* updateInvoiceItem(action) {
 
 // Watchers
 export function* watchGetInvoiceItems() {
-  yield takeEvery(actions.INVOICEITEMS_FETCH_REQUESTED, getAllInvoiceItems);
+  yield takeEvery(actions.INVOICEITEMS_FETCH_REQUESTED, getInvoiceItems);
 }
 
 export function* watchDeleteInvoiceItem() {

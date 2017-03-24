@@ -18,20 +18,21 @@ export const INVOICEITEM_HIDE_MODAL_EDIT = 'INVOICEITEM_HIDE_MODAL_EDIT';
 
 
 // InvoiceItems Actions
-export function getAllInvoiceItems() {
+export function getInvoiceItems(id) {
   return {
-    type: INVOICEITEMS_FETCH_REQUESTED
+    type: INVOICEITEMS_FETCH_REQUESTED,
+    id
   }
 }
 
-export function receiveAllInvoiceItems(invoiceItems) {
+export function receiveInvoiceItems(invoiceItems) {
   return {
     type: INVOICEITEMS_FETCH_RECEIVED,
     invoiceItems
   }
 }
 
-export function receiveAllInvoiceItemsFailed(err) {
+export function receiveInvoiceItemsFailed(err) {
   return {
     type: INVOICEITEMS_FETCH_FAILED,
     err
