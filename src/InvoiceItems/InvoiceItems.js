@@ -4,11 +4,13 @@ import { Button } from 'react-bootstrap';
 import { reduxForm, Field } from 'redux-form';
 
 import FormInputField from '../components/FormInputField';
+import InvoiceItemsList from '../components/InvoiceItemsList';
 
 import { selectedInvoiceItemSelector } from './selectors';
 
 import {
-  getAllInvoiceItems,
+  clearInvoiceItems,
+  getInvoiceItems,
   deleteInvoiceItemRequest,
   addNewInvoiceItemRequest,
 } from './actions';
@@ -17,14 +19,15 @@ class InvoiceItems extends Component {
 
   componentDidMount() {
     if (this.props.invoiceItemsList.length == 0) {
-      console.log("List in state is empty. Receiving invoice items from DB.");
-      console.log("II selectedInvoiceId", this.props.selectedInvoiceId);
-      this.props.getAllInvoiceItems(this.props.selectedInvoiceId);
+      this.props.getInvoiceItems(this.props.selectedInvoiceId);
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearInvoiceItems();
+  }
+
   render() {
-    console.log("II List", this.props.invoiceItemsList);
     return (
       <form>
         <div>
@@ -42,11 +45,7 @@ class InvoiceItems extends Component {
             }
           </Field>
           <Button>Add</Button>
-          {
-            this.props.invoiceItemsList.map(ii => {
-              return <div>ii.id</div>
-            })
-          }
+          <InvoiceItemsList invoiceItemsList={this.props.invoiceItemsList} />
         </div>
       </form>
     )
@@ -71,7 +70,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getAllInvoiceItems: () => dispatch(getAllInvoiceItems()),
+    clearInvoiceItems: () => dispatch(clearInvoiceItems()),
+    getInvoiceItems: (id) => dispatch(getInvoiceItems(id)),
     deleteInvoiceItem: (id) => dispatch(deleteInvoiceItemRequest(id)),
   }
 }

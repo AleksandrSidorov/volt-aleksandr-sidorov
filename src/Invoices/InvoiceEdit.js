@@ -19,29 +19,23 @@ class InvoiceEdit extends Component {
   componentWillMount() {
     const id = this.props.match.params.id;
     if (!isNaN(Number(id))) {
-      console.log('will set selectedInvoiceId', id);
       this.props.setSelectedInvoiceId(Number(id));
     }
   }
 
   componentDidMount() {
     if (this.props.invoicesList.length == 0) {
-      console.log("Receiving invoices from DB.");
       this.props.getAllInvoices();
     }
 
     if (this.props.customersList.length == 0) {
-      console.log("Receiving customers from DB.");
       this.props.getAllCustomers();
     }
 
     if (this.props.productsList.length == 0) {
-      console.log("Receiving products from DB.");
       this.props.getAllProducts();
     }
-    console.log('did mount', this.props.selectedInvoiceId);
     if (this.props.selectedInvoiceId) {
-      console.log('Receiving Invoice Items List.');
       this.props.getAllInvoiceItems(this.props.selectedInvoiceId);
     }
   }

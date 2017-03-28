@@ -6,7 +6,7 @@ const baseUrl = `/api`;
 function getItems(component, invoiceId=false) {
   let invoiceUrl = '';
   if (invoiceId !== false) {
-    invoiceUrl = `/${invoiceId}/invoices`;
+    invoiceUrl = `/${invoiceId}/items`;
   }
   return fetch(`${baseUrl}/${component}${invoiceUrl}`)
     .then(res => {

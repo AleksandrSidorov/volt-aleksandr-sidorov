@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import {
+  INVOICEITEMS_CLEAR,
   INVOICEITEMS_FETCH_REQUESTED,
   INVOICEITEMS_FETCH_RECEIVED,
   INVOICEITEMS_FETCH_FAILED,
@@ -23,11 +24,17 @@ const initialState = {
 
 export default function invoiceItems(state = initialState, action) {
   switch(action.type) {
-    case INVOICEITEMS_FETCH_REQUESTED:
+    case INVOICEITEMS_CLEAR:
       return {
         ...state,
         invoiceItemsList: [],
+        isFetching: false,
+      }
+    case INVOICEITEMS_FETCH_REQUESTED:
+      return {
+        ...state,
         isFetching: true,
+        invoiceItemsList: [],
         errorMessage: null
       }
     case INVOICEITEMS_FETCH_RECEIVED:

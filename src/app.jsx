@@ -15,13 +15,14 @@ import configureStore from './configureStore';
 import customersSaga from './Customers/sagas';
 import productsSaga from './Products/sagas';
 import invoicesSaga from './Invoices/sagas';
-import incoiceIntemsSaga from './InvoiceItems/sagas';
+import invoiceItemsSaga from './InvoiceItems/sagas';
 
 function* daSaga() {
   yield [
     fork(customersSaga),
     fork(productsSaga),
-    fork(invoicesSaga)
+    fork(invoicesSaga),
+    fork(invoiceItemsSaga)
   ]
 }
 

@@ -1,3 +1,4 @@
+export const INVOICEITEMS_CLEAR = 'INVOICEITEMS_CLEAR';
 export const INVOICEITEMS_FETCH_REQUESTED = 'GET_FETCH_INVOICEITEMS';
 export const INVOICEITEMS_FETCH_RECEIVED = 'INVOICEITEMS_FETCH_RECEIVED';
 export const INVOICEITEMS_FETCH_FAILED = 'INVOICEITEMS_FETCH_FAILED';
@@ -18,6 +19,12 @@ export const INVOICEITEM_HIDE_MODAL_EDIT = 'INVOICEITEM_HIDE_MODAL_EDIT';
 
 
 // InvoiceItems Actions
+export function clearInvoiceItems() {
+  return {
+    type: INVOICEITEMS_CLEAR
+  }
+}
+
 export function getInvoiceItems(id) {
   return {
     type: INVOICEITEMS_FETCH_REQUESTED,

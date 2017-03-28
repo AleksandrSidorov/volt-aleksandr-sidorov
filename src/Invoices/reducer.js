@@ -66,7 +66,6 @@ export default function invoices(state = initialState, action) {
       }
 
     case INVOICE_SET_SELECTED_ID:
-      console.log('Reducer. Set ii', action.id);
       return {
         ...state,
         selectedInvoiceId: action.id

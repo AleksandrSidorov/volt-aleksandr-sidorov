@@ -5,7 +5,7 @@ import * as actions from './actions';
 
 export function* getInvoiceItems(action) {
   try {
-    const invoiceItems = yield call(api.getItems, 'invoiceItems', action.id);
+    const invoiceItems = yield call(api.getItems, 'invoices', action.id);
     yield put(actions.receiveInvoiceItems(invoiceItems));
   }
   catch (err) {
