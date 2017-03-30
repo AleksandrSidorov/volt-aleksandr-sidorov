@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap'
 
-const InvoiceItemsList = ({ invoiceItemsList }) => {
+const InvoiceItemsList = ({ invoiceItemsList, productsList }) => {
   return (
     <Table striped hover>
       <thead>
@@ -14,12 +14,17 @@ const InvoiceItemsList = ({ invoiceItemsList }) => {
       </thead>
       <tbody>
         {
-          invoiceItemsList.length ? (
+          invoiceItemsList.length && productsList.length ? (
             invoiceItemsList.map((ii, index) => {
+              const prod = productsList.filter(product => {
+                return product.id == ii.product_id
+              })[0];
+              console.log(productsList);
+              console.log(ii.product_id);
               return (
                 <tr key={index}>
-                  <td>{ii.id}</td>
-                  <td>{ii.product_id}</td>
+                  <td>{prod.name}</td>
+                  <td>{prod.price}</td>
                   <td>{ii.quantity}</td>
                   <td>
                     <Button
@@ -32,7 +37,7 @@ const InvoiceItemsList = ({ invoiceItemsList }) => {
                   </tr>
                 )
               })
-            ) : null
+            ) : <tr><td>Loading...</td></tr>
           }
         </tbody>
       </Table>

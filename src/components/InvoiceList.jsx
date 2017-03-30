@@ -16,12 +16,15 @@ const InvoiceList = ({ invoicesList, customersList, onDeleteClick }) => {
       </thead>
       <tbody>
         {
-          invoicesList.length ? (
+          invoicesList.length && customersList.length ? (
             invoicesList.map((invoice, index) => {
+              const customerName = customersList.filter(customer => {
+                return customer.id == invoice.customer_id
+              })[0];
               return (
                 <tr key={index}>
                   <td>{invoice.id}</td>
-                  <td>{invoice.customer_id}</td>
+                  <td>{customerName.name}</td>
                   <td>{invoice.discount}</td>
                   <td>{invoice.total}</td>
                   <td>
@@ -42,7 +45,7 @@ const InvoiceList = ({ invoicesList, customersList, onDeleteClick }) => {
                 </tr>
               )
             })
-          ) : null
+          ) : <tr><td>Loading...</td></tr>
         }
       </tbody>
     </Table>

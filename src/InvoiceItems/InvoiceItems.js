@@ -45,7 +45,10 @@ class InvoiceItems extends Component {
             }
           </Field>
           <Button>Add</Button>
-          <InvoiceItemsList invoiceItemsList={this.props.invoiceItemsList} />
+          <InvoiceItemsList
+            invoiceItemsList={this.props.invoiceItemsList}
+            productsList={this.props.productsList}
+          />
         </div>
       </form>
     )

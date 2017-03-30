@@ -8,7 +8,9 @@ import FormInvoice from './FormInvoice'
 import InvoiceList from '../components/InvoiceList';
 import ModalDelete from '../components/ModalDelete';
 
-import { selectedInvoiceSelector } from './selectors';
+import {
+  selectedInvoiceSelector,
+} from './selectors';
 
 import {
   getAllInvoices,
@@ -21,7 +23,7 @@ import { getAllCustomers } from '../Customers/actions';
 
 class Invoices extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.invoicesList.length == 0) {
       console.log("List in state is empty. Receiving invoices from DB.");
       this.props.getAllInvoices();
