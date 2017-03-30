@@ -45,7 +45,7 @@ const InvoiceList = ({ invoicesList, customersList, onDeleteClick }) => {
                 </tr>
               )
             })
-          ) : <tr><td>Loading...</td></tr>
+          ) : null
         }
       </tbody>
     </Table>

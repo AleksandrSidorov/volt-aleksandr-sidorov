@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap'
 
-const InvoiceItemsList = ({ invoiceItemsList, productsList }) => {
+const InvoiceItemsList = ({ invoiceItemsList, productsList, handleRemoveInvoiceItem }) => {
   return (
     <Table striped hover>
       <thead>
@@ -29,7 +29,7 @@ const InvoiceItemsList = ({ invoiceItemsList, productsList }) => {
                   <td>
                     <Button
                       bsStyle="danger"
-                      onClick={() => onDeleteClick(ii.id)}
+                      onClick={() => handleRemoveInvoiceItem(ii.id)}
                       >
                         {'Delete'}
                       </Button>
@@ -37,7 +37,7 @@ const InvoiceItemsList = ({ invoiceItemsList, productsList }) => {
                   </tr>
                 )
               })
-            ) : <tr><td>Loading...</td></tr>
+            ) : null
           }
         </tbody>
       </Table>

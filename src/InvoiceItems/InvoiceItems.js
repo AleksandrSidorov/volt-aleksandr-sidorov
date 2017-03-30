@@ -13,6 +13,8 @@ import {
   getInvoiceItems,
   deleteInvoiceItemRequest,
   addNewInvoiceItemRequest,
+  removeInvoiceItem,
+  insertInvoiceItem,
 } from './actions';
 
 class InvoiceItems extends Component {
@@ -44,10 +46,11 @@ class InvoiceItems extends Component {
               })
             }
           </Field>
-          <Button>Add</Button>
+          <Button onClick={() => this.props.insertInvoiceItem()}>Add</Button>
           <InvoiceItemsList
             invoiceItemsList={this.props.invoiceItemsList}
             productsList={this.props.productsList}
+            handleRemoveInvoiceItem={this.props.removeInvoiceItem}
           />
         </div>
       </form>
@@ -76,6 +79,8 @@ function mapDispatchToProps(dispatch) {
     clearInvoiceItems: () => dispatch(clearInvoiceItems()),
     getInvoiceItems: (id) => dispatch(getInvoiceItems(id)),
     deleteInvoiceItem: (id) => dispatch(deleteInvoiceItemRequest(id)),
+    removeInvoiceItem: (id) => dispatch(removeInvoiceItem(id)),
+    insertInvoiceItem: (invoiceItem) => dispatch(insertInvoiceItem(invoiceItem)),
   }
 }
 
